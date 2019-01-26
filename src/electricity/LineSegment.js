@@ -1,5 +1,5 @@
 import { MathUtils } from '@ff0000-ad-tech/ad-utils'
-import Point from './Point'
+import Point from '../Point'
 
 export default class LineSegment {
 	constructor(ctx, from, angle, dist, lineage) {

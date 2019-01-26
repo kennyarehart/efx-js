@@ -28,22 +28,22 @@ function rotate(p, o, n, v) {
 	s = cSin[a] || Math.sin(a)
 	cCos[a] = c
 	cSin[a] = s
-	x = p[0]
-	y = p[1]
-	z = p[2]
+	x = p.x //p[0]
+	y = p.y //p[1]
+	z = p.z //p[2]
 
 	switch (v) {
 		case 0: // X
-			p[1] = y * c + z * s
-			p[2] = y * -s + z * c
+			p.y /*p[1]*/ = y * c + z * s
+			p.z /*p[2]*/ = y * -s + z * c
 			break
 		case 1: // Y
-			p[0] = x * c + z * s
-			p[2] = x * -s + z * c
+			p.x /*p[0]*/ = x * c + z * s
+			p.z /*p[2]*/ = x * -s + z * c
 			break
 		case 2: // Z
-			p[0] = x * c + y * s
-			p[1] = x * -s + y * c
+			p.x /*p[0]*/ = x * c + y * s
+			p.y /*p[1]*/ = x * -s + y * c
 			break
 	}
 }
@@ -51,10 +51,10 @@ function rotate(p, o, n, v) {
 /* p : point3d, o : oldPoint, n : newPoint */
 export function scale(p, o, n) {
 	if (o === n) return
-	x = p[0]
-	y = p[1]
-	z = p[2]
-	p[0] = (x * n) / o
-	p[1] = (y * n) / o
-	p[2] = (z * n) / o
+	x = p.x // p[0]
+	y = p.y //p[1]
+	z = p.z //p[2]
+	/*p[0]*/ p.x = (x * n) / o
+	/*p[1]*/ p.y = (y * n) / o
+	/*p[2]*/ p.z = (z * n) / o
 }

@@ -2,7 +2,7 @@ import { MathUtils, ArrayUtils } from '@ff0000-ad-tech/ad-utils'
 import { FrameRate } from '@ff0000-ad-tech/ad-events'
 import Composer from './Composer'
 import Bolt from './Bolt'
-import Point from './Point'
+import Point from '../Point'
 
 export default class Electricity {
 	constructor(target) {

@@ -19,8 +19,8 @@ export default class Vapor {
 
 		T.w = T.canvas.width
 		T.h = T.canvas.height
-		const x = MathUtils.random(0, T.w)
-		const y = MathUtils.random(0, T.h)
+		const x = 150 // MathUtils.random(0, T.w)
+		const y = 300 //MathUtils.random(0, T.h)
 		T.outer = 30
 
 		var colorSubSet = colors.blue.rgb.slice(1, 4)
@@ -28,17 +28,17 @@ export default class Vapor {
 		var _colors = ArrayUtils.combine(colorSubSet, rev)
 
 		var _pathRadial = [
-			[[44, 0, 0]],
-			[[44, 16, 0], [35, 21, 0], [32, 27, 0]],
-			[[23, 41, 0], [-18, 59, 0], [-30, 26, 0]],
-			[[-36, 12, 0], [-59, -7, 0], [-30, -32, 0]],
-			[[-17, -43, 0], [-17, -46, 0], [1, -44, 0]],
-			[[12, -44, 0], [21, -44, 0], [29, -31, 0]],
-			[[37, -18, 0], [44, -18, 0], [44, 0, 0]]
+			[[44, 0]],
+			[[44, 16], [35, 21], [32, 27]],
+			[[23, 41], [-18, 59], [-30, 26]],
+			[[-36, 12], [-59, -7], [-30, -32]],
+			[[-17, -43], [-17, -46], [1, -44]],
+			[[12, -44], [21, -44], [29, -31]],
+			[[37, -18], [44, -18], [44, 0]]
 		]
 
 		T._paths = []
-		var _count = 200
+		var _count = 300
 		var _size = [3, 6, 3]
 		var _scales = [0.01, 2.3, 0.01]
 
@@ -47,19 +47,17 @@ export default class Vapor {
 		const startDirZ = (MathUtils.randomBoolean() ? -1 : 1) * MathUtils.random(0.5, 1, 0.1)
 
 		for (var i = 0; i < _count; i++) {
-			var s = new Path3d(_pathRadial)
-			s.x = x
-			s.y = y
+			var s = new Path3d(_pathRadial, { x: x, y: y })
+			// s.x = x
+			// s.y = y
 			s.scale = getInRange(i, _scales, Circ) // MathUtils.rel(_scales[1], _scales[0], 0, _count, i) //0.1 + i * 0.4
 			s.rx = 3.6
 			s.ry = 0
-			s.rz = 0.1
+			s.rz = 0.5
 			// anim speeds
 			s.dirX = startDirX
 			s.dirY = startDirY
 			s.dirZ = startDirZ
-			s.ogDirX = s.dirX
-			s.ogDirY = s.dirY
 			//
 			s.alpha = 0 //0.4 //
 			s.size = getInRange(i, _size) // (i / (_count - 1)) * (_size[1] - _size[0]) + _size[0]
@@ -139,11 +137,11 @@ export default class Vapor {
 					// reverse
 					item.dirY *= -1
 				}
-				if (item.z > 10 || item.z < -10) item.dirZ *= -1
+				// if (item.z > 100 || item.z < -100) item.dirZ *= -1
 
 				item.x += item.dirX
 				item.y += item.dirY
-				item.z += item.dirZ
+				// item.z += item.dirZ
 				item.rx += 0.01
 				item.ry -= 0.005
 				item.rz += 0.01
