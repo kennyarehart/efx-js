@@ -1,4 +1,4 @@
-import { FrameRate } from '@ff0000-ad-tech/ad-events'
+import { Hummingbird } from 'hummingbird'
 import Composer from './Composer'
 import Bolt from './Bolt'
 import Point from './Point'
@@ -26,12 +26,18 @@ export default class Lightning {
 
 		T.counter = 0
 		T.targetCount = 0
+
+		T.ticker = Hummingbird(T.tick, {
+			speed: 50,
+			scope: T
+		})
+		T.ticker.sleep()
 	}
 
 	play() {
 		const T = this
 		T.isActive = true
-		FrameRate.register(T, T.tick, 50)
+		T.ticker.wake()
 	}
 
 	finish() {
@@ -41,7 +47,7 @@ export default class Lightning {
 	stop() {
 		const T = this
 		T.composer.cd.clear()
-		FrameRate.unregister(T, T.tick, 50)
+		T.ticker.sleep()
 	}
 
 	// -------------------------------------------------------------------------------

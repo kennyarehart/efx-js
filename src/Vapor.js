@@ -1,4 +1,4 @@
-import { FrameRate } from '@ff0000-ad-tech/ad-events'
+import { Hummingbird } from 'hummingbird'
 import Path3d from './Path3d'
 import colors from './colors'
 import { randomToggleOne, random, map } from './utils'
@@ -91,13 +91,18 @@ function Vapor(target, arg) {
 
 	T.current = 0
 	T.fadeIn = true
+
+	T.ticker = Hummingbird(T.tick, {
+		scope: T
+	})
+	T.ticker.sleep()
 }
 
 Vapor.prototype = {
 	play: function() {
 		const T = this
 		T.current = 0
-		FrameRate.register(T, T.tick, 60)
+		T.ticker.wake()
 	},
 
 	finish: function() {
@@ -106,7 +111,7 @@ Vapor.prototype = {
 		TweenLite.to(T._paths, 1, {
 			alpha: 0,
 			onComplete: () => {
-				FrameRate.unregister(T, T.tick, 60)
+				T.ticker.release()
 			}
 		})
 	},
