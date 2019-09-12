@@ -1,6 +1,6 @@
 import { rotatePointX, rotatePointY, rotatePointZ, scale } from './Transform'
 import { Matrix3D } from 'ad-geom'
-import Point from '../Point'
+import Point from './Point'
 
 // Single Path Object
 export default class Path3d {

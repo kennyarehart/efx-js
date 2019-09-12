@@ -1,6 +1,6 @@
 import { CanvasDrawer, CanvasImage } from '@ff0000-ad-tech/ad-canvas'
 import { UICanvas } from '@ff0000-ad-tech/ad-ui'
-import colors from '../colors'
+import colors from './colors'
 
 export default class Composer {
 	constructor(target) {
@@ -12,16 +12,16 @@ export default class Composer {
 			id: 'bolts-precomp',
 			// target: target,
 			css: {
-				width: target.width,
-				height: target.height
+				width: target.offsetWidth,
+				height: target.offsetHeight
 			}
 		})
 		T.cd = new CanvasDrawer({
 			id: 'bolts-CD',
 			target: target,
 			css: {
-				width: target.width,
-				height: target.height
+				width: target.offsetWidth,
+				height: target.offsetHeight
 			}
 		})
 
@@ -66,8 +66,8 @@ export default class Composer {
 			// target: T.target,
 			id: 'bolt-canvas-' + T.boltCanvases.length,
 			css: {
-				width: T.target.width,
-				height: T.target.height
+				width: T.target.offsetWidth,
+				height: T.target.offsetHeight
 			}
 		})
 		T.boltCanvases.push(c)

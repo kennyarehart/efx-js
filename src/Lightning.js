@@ -1,25 +1,27 @@
-import { MathUtils, ArrayUtils } from '@ff0000-ad-tech/ad-utils'
 import { FrameRate } from '@ff0000-ad-tech/ad-events'
 import Composer from './Composer'
 import Bolt from './Bolt'
-import Point from '../Point'
+import Point from './Point'
+import { toDegrees, getAngle, getDistance, random, shuffle } from './utils'
 
-export default class Electricity {
+export default class Lightning {
 	constructor(target) {
 		const T = this
 		T.composer = new Composer(target)
 
+		T.width = target.offsetWidth
+		T.height = target.offsetHeight
+
 		let points = []
 		for (var i = 0; i < 9; i++) {
 			if (i == 4) continue
-			const x = (i % 3) * (target.width / 2)
-			const y = Math.floor(i / 3) * (target.height / 2)
-
+			const x = (i % 3) * (T.width / 2)
+			const y = Math.floor(i / 3) * (T.height / 2)
 			var s = T.create(new Point(x, y))
 			points.push(s)
 		}
 		T.total = points.length
-		T.waiting = ArrayUtils.shuffle(points)
+		T.waiting = shuffle(points)
 		T.isActive = false
 
 		T.counter = 0
@@ -33,7 +35,6 @@ export default class Electricity {
 	}
 
 	finish() {
-		console.log('FINISH')
 		this.isActive = false
 	}
 
@@ -46,9 +47,8 @@ export default class Electricity {
 	// -------------------------------------------------------------------------------
 	create(point, canvas) {
 		const T = this
-		const a = MathUtils.toDegrees(MathUtils.getAngle(point.x, point.y, T.width / 2, T.height / 2))
-		const distanceToCenter = MathUtils.getDistance(point.x, point.y, T.width / 2, T.height / 2)
-
+		const a = toDegrees(getAngle(point.x, point.y, T.width / 2, T.height / 2))
+		const distanceToCenter = getDistance(point.x, point.y, T.width / 2, T.height / 2)
 		let c = canvas || T.composer.add()
 
 		return new Bolt(c, point, a, distanceToCenter)
@@ -61,7 +61,7 @@ export default class Electricity {
 				T.next()
 			}
 			T.counter = 0
-			T.targetCount = MathUtils.random(5, 15)
+			T.targetCount = random(5, 15)
 		}
 		T.counter++
 		T.composer.update()
@@ -69,7 +69,6 @@ export default class Electricity {
 
 	next() {
 		const T = this
-		// console.log('next()', T.waiting)
 		if (T.waiting.length > 0) {
 			var bolt = T.waiting.shift()
 			if (bolt) {

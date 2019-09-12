@@ -1,2 +1,2 @@
-export { default as Electricity } from './src/electricity/Electricity'
-export { default as Vapor } from './src/path3d/Vapor'
+export { default as Lightning } from './src/Lightning'
+export { default as Vapor } from './src/Vapor'
